@@ -5,7 +5,6 @@ import { Canvas, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import ParticleField from "./ParticleField";
-import HeroObject from "./HeroObject";
 import type { MorphController, SceneName } from "@/lib/controller";
 import {
   sampleText,
@@ -138,7 +137,6 @@ export default function ExperienceCanvas({ controller, count, onReady }: Props) 
         <Env />
         <FitCamera />
         <Boot controller={controller} count={count} onReady={onReady} />
-        <HeroObject controller={controller} />
         <ParticleField controller={controller} count={count} />
         <PointerRipples controller={controller} />
       </Canvas>

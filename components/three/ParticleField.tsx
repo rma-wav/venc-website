@@ -25,10 +25,10 @@ export default function ParticleField({ controller, count }: Props) {
   const mat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: "#ffffff",
+        color: "#0b0b0d",
         metalness: 1.0,
-        roughness: 0.24,
-        envMapIntensity: 1.25,
+        roughness: 0.2,
+        envMapIntensity: 1.35,
       }),
     []
   );
@@ -63,14 +63,14 @@ export default function ParticleField({ controller, count }: Props) {
   const mouse = useRef({ x: 0, y: 0 });
   const seeded = useRef(false);
 
-  // Subtle silver variation per bead.
+  // Subtle black-chrome variation per bead.
   useEffect(() => {
     const mesh = meshRef.current;
     if (!mesh) return;
     const c = new THREE.Color();
     for (let i = 0; i < count; i++) {
-      const v = 0.7 + Math.random() * 0.3;
-      c.setRGB(v, v, Math.min(1, v * (0.97 + Math.random() * 0.05)));
+      const v = 0.05 + Math.random() * 0.09;
+      c.setRGB(v, v * 0.99, Math.min(1, v * 1.05));
       mesh.setColorAt(i, c);
       data.phase[i] = Math.random() * Math.PI * 2;
       data.speed[i] = 0.5 + Math.random() * 1.1;
