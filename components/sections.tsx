@@ -60,24 +60,13 @@ export function LetterIntro({
   no: string;
   scene: SceneName;
 }) {
+  // Pure cinematic slide: the 3D particle letter speaks for itself,
+  // no overlay captions on the first four scrolls.
+  void letter;
+  void no;
   return (
     <Slide scene={scene} className="items-end">
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between px-6 pb-10 md:px-12">
-        <div data-reveal>
-          <p className="text-[11px] uppercase tracking-[0.4em] text-white/45">
-            Huruf {no} dari 4
-          </p>
-          <p className="mt-3 font-display text-3xl font-bold tracking-[0.2em] metallic-text">
-            {letter}
-          </p>
-        </div>
-        <p
-          data-reveal
-          className="text-[10px] uppercase tracking-[0.35em] text-white/35"
-        >
-          Geser untuk lanjut →
-        </p>
-      </div>
+      {null}
     </Slide>
   );
 }
