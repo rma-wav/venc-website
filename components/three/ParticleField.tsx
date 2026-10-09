@@ -104,21 +104,28 @@ export default function ParticleField({ controller, count, theme }: Props) {
   const mouse = useRef({ x: 0, y: 0 });
   const seeded = useRef(false);
 
-  // Subtle black-chrome variation per bead.
+  // Tri-chrome beads: black, silver, white. In light mode the palette
+  // shifts darker so every bead stays readable on the light background.
   useEffect(() => {
     const mesh = meshRef.current;
     if (!mesh) return;
     const c = new THREE.Color();
+    const palette =
+      theme === "light"
+        ? ["#0b0b0d", "#7d838c", "#a9adb4"]
+        : ["#0b0b0d", "#9aa0a8", "#f2f3f5"];
     for (let i = 0; i < count; i++) {
-      const v = 0.05 + Math.random() * 0.09;
-      c.setRGB(v, v * 0.99, Math.min(1, v * 1.05));
+      const r = Math.random();
+      const pick = r < 0.6 ? palette[0] : r < 0.82 ? palette[1] : palette[2];
+      const v = 0.88 + Math.random() * 0.12;
+      c.set(pick).multiplyScalar(v);
       mesh.setColorAt(i, c);
       data.phase[i] = Math.random() * Math.PI * 2;
       data.speed[i] = 0.5 + Math.random() * 1.1;
       data.scale[i] = 0.7 + Math.random() * 0.65;
     }
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-  }, [count, data]);
+  }, [count, data, theme]);
 
   // Mouse parallax.
   useEffect(() => {
