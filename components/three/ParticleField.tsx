@@ -11,28 +11,31 @@ const easeInOutCubic = (t: number) =>
 interface Props {
   controller: MorphController;
   count: number;
+  theme: "dark" | "light";
 }
 
 /**
  * ~15k metallic beads that melt & reform between letter/shape targets.
  * All motion is computed on the CPU into an InstancedMesh.
  */
-export default function ParticleField({ controller, count }: Props) {
+export default function ParticleField({ controller, count, theme }: Props) {
   const meshRef = useRef<THREE.InstancedMesh>(null!);
   const shadowRef = useRef<THREE.InstancedMesh>(null!);
   const glossRef = useRef<THREE.InstancedMesh>(null!);
   const groupRef = useRef<THREE.Group>(null!);
 
   const geom = useMemo(() => new THREE.IcosahedronGeometry(0.024, 1), []);
+  // Chrome metallic black beads. In light mode the env reflection is
+  // dimmed so the beads stay dark against the light background.
   const mat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
         color: "#0b0b0d",
         metalness: 1.0,
         roughness: 0.2,
-        envMapIntensity: 1.35,
+        envMapIntensity: theme === "light" ? 0.35 : 1.35,
       }),
-    []
+    [theme]
   );
 
   // Thin white "flow shadow": a faint ghost of each bead trailing along its

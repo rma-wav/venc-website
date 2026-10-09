@@ -9,7 +9,6 @@ import ProgressNav, { type HudApi } from "@/components/ProgressNav";
 import Loader from "@/components/Loader";
 import CustomCursor from "@/components/CustomCursor";
 import {
-  LetterIntro,
   Hero,
   Tentang,
   Fokus,
@@ -19,9 +18,9 @@ import {
   Footer,
 } from "@/components/sections";
 
-// Slide order (14 panels): 0 V · 1 E · 2 N · 3 C · 4 Hero(VENC) ·
-// 5 Tentang · 6-9 Fokus · 10 Jadwal · 11 Akses · 12 Kolaborasi · 13 Footer
-const TOTAL_PANELS = 14;
+// Slide order (10 panels): 0 Hero(VENC) · 1 Tentang · 2-5 Fokus ·
+// 6 Jadwal · 7 Akses · 8 Kolaborasi · 9 Footer
+const TOTAL_PANELS = 10;
 
 export default function Page() {
   const ctrlRef = useRef<MorphController | null>(null);
@@ -32,8 +31,8 @@ export default function Page() {
   const [count] = useState(() =>
     typeof window !== "undefined" &&
     Math.min(window.innerWidth, window.innerHeight) < 700
-      ? 7000
-      : 15000
+      ? 4500
+      : 10000
   );
 
   // Light/dark theme, persisted across visits.
@@ -90,10 +89,6 @@ export default function Page() {
       />
       <main id="h-pin" className="relative z-10 overflow-hidden">
         <div id="h-track" className="flex h-screen w-max">
-          <LetterIntro letter="V" no="1" scene="V" />
-          <LetterIntro letter="E" no="2" scene="E" />
-          <LetterIntro letter="N" no="3" scene="N" />
-          <LetterIntro letter="C" no="4" scene="C" />
           <Hero />
           <Tentang />
           <Fokus />

@@ -47,30 +47,6 @@ function Slide({
   );
 }
 
-/* ------------------------------ LETTER INTROS ----------------------------- */
-/* One full screen per letter. The particle letter forms when the slide
-   becomes active — scroll-driven, never automatic. */
-
-export function LetterIntro({
-  letter,
-  no,
-  scene,
-}: {
-  letter: string;
-  no: string;
-  scene: SceneName;
-}) {
-  // Pure cinematic slide: the 3D particle letter speaks for itself,
-  // no overlay captions on the first four scrolls.
-  void letter;
-  void no;
-  return (
-    <Slide scene={scene} className="items-end">
-      {null}
-    </Slide>
-  );
-}
-
 /* ---------------------------------- HERO ---------------------------------- */
 
 export function Hero() {
@@ -86,13 +62,13 @@ export function Hero() {
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <button
-              data-goto="5"
+              data-goto="1"
               className="rounded-full bg-white px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-black transition-transform hover:scale-105"
             >
               Jelajahi
             </button>
             <button
-              data-goto="12"
+              data-goto="8"
               className="rounded-full border border-white/25 px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/85 transition-colors hover:border-white hover:text-white"
             >
               Kolaborasi

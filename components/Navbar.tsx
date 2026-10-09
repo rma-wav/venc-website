@@ -7,14 +7,13 @@ interface Props {
 }
 
 // Panel indices in the horizontal journey:
-// 0 V · 1 E · 2 N · 3 C · 4 VENC(hero) · 5 Tentang · 6-9 Fokus ·
-// 10 Jadwal · 11 Akses · 12 Kolaborasi · 13 Footer
+// 0 Hero(VENC) · 1 Tentang · 2-5 Fokus · 6 Jadwal · 7 Akses · 8 Kolaborasi · 9 Footer
 const LINKS = [
-  { panel: 5, label: "Tentang" },
-  { panel: 6, label: "Fokus" },
-  { panel: 10, label: "Jadwal" },
-  { panel: 11, label: "Akses" },
-  { panel: 12, label: "Kolaborasi" },
+  { panel: 1, label: "Tentang" },
+  { panel: 2, label: "Fokus" },
+  { panel: 6, label: "Jadwal" },
+  { panel: 7, label: "Akses" },
+  { panel: 8, label: "Kolaborasi" },
 ];
 
 function SunIcon() {
@@ -42,7 +41,7 @@ function MoonIcon() {
 export default function Navbar({ goToPanelRef, theme, onToggleTheme }: Props) {
   const go = (i: number) => goToPanelRef.current?.(i);
   return (
-    <aside className="fixed right-0 top-0 z-40 flex h-full w-14 flex-col items-center justify-between border-l border-white/10 bg-black/45 py-6 backdrop-blur-md md:w-20">
+    <aside className="fixed left-0 top-0 z-40 flex h-full w-14 flex-col items-center justify-between border-r border-white/15 bg-black/60 py-6 backdrop-blur-md md:w-20">
       <button
         onClick={() => go(0)}
         aria-label="VENC — kembali ke awal"

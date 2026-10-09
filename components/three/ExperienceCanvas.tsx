@@ -130,7 +130,7 @@ export default function ExperienceCanvas({ controller, count, onReady, theme }: 
   return (
     <div className="fixed inset-0 z-0" aria-hidden="true">
       <Canvas
-        dpr={[1, 1.75]}
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 7.6], fov: 40 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       >
@@ -141,7 +141,7 @@ export default function ExperienceCanvas({ controller, count, onReady, theme }: 
         <Env />
         <FitCamera />
         <Boot controller={controller} count={count} onReady={onReady} />
-        <ParticleField controller={controller} count={count} />
+        <ParticleField controller={controller} count={count} theme={theme} />
         <PointerRipples controller={controller} />
       </Canvas>
       {/* Cinematic vignette + top/bottom readability gradients */}

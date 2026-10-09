@@ -74,6 +74,22 @@ html.light ::-webkit-scrollbar-thumb:hover {
   background: #a8a59c;
 }
 
+/* Darker chrome gradient for light backgrounds — the silver version
+   would wash out and blend into the page. */
+html.light .metallic-text {
+  background: linear-gradient(
+    120deg,
+    #2e3136 0%,
+    #6d727a 25%,
+    #141619 50%,
+    #8b9098 75%,
+    #33363c 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 html.light .text-white { color: #161616; }
 html.light .text-white\/85 { color: rgb(22 22 22 / 0.85); }
 html.light .text-white\/75 { color: rgb(22 22 22 / 0.75); }
@@ -95,6 +111,7 @@ html.light .bg-white\/10 { background-color: rgb(22 22 22 / 0.1); }
 html.light .bg-white\/\[0\.03\] { background-color: rgb(22 22 22 / 0.04); }
 html.light .bg-black { background-color: #f4f3ef; }
 html.light .bg-black\/45 { background-color: rgb(244 243 239 / 0.6); }
+html.light .bg-black\/60 { background-color: rgb(250 249 246 / 0.88); }
 
 html.light .border-white { border-color: #161616; }
 html.light .border-white\/30 { border-color: rgb(22 22 22 / 0.3); }
