@@ -20,6 +20,7 @@ interface Props {
 export default function ParticleField({ controller, count }: Props) {
   const meshRef = useRef<THREE.InstancedMesh>(null!);
   const shadowRef = useRef<THREE.InstancedMesh>(null!);
+  const glossRef = useRef<THREE.InstancedMesh>(null!);
   const groupRef = useRef<THREE.Group>(null!);
 
   const geom = useMemo(() => new THREE.IcosahedronGeometry(0.024, 1), []);
@@ -42,7 +43,22 @@ export default function ParticleField({ controller, count }: Props) {
       new THREE.MeshBasicMaterial({
         color: "#ffffff",
         transparent: true,
-        opacity: 0.16,
+        opacity: 0.13,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      }),
+    []
+  );
+
+  // Glossy highlight: a tight white sheen sitting right on each bead,
+  // like a specular dot on polished chrome.
+  const glossGeom = useMemo(() => new THREE.IcosahedronGeometry(0.024, 0), []);
+  const glossMat = useMemo(
+    () =>
+      new THREE.MeshBasicMaterial({
+        color: "#ffffff",
+        transparent: true,
+        opacity: 0.3,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
       }),
@@ -74,6 +90,9 @@ export default function ParticleField({ controller, count }: Props) {
       m2: new THREE.Matrix4(),
       p2: new THREE.Vector3(),
       s2: new THREE.Vector3(),
+      m3: new THREE.Matrix4(),
+      p3: new THREE.Vector3(),
+      s3: new THREE.Vector3(),
     }),
     []
   );
@@ -113,7 +132,8 @@ export default function ParticleField({ controller, count }: Props) {
     controller.now = t;
     const mesh = meshRef.current;
     const shadow = shadowRef.current;
-    if (!mesh || !shadow) return;
+    const gloss = glossRef.current;
+    if (!mesh || !shadow || !gloss) return;
 
     // Seed once targets are available.
     if (!seeded.current) {
@@ -154,7 +174,7 @@ export default function ParticleField({ controller, count }: Props) {
       );
     }
 
-    const { m, p, q, s, m2, p2, s2 } = tmp;
+    const { m, p, q, s, m2, p2, s2, m3, p3, s3 } = tmp;
     const ripples = controller.ripples;
     const TRAIL = 5.0; // how far the white shadow lags behind each bead
 
@@ -210,6 +230,12 @@ export default function ParticleField({ controller, count }: Props) {
       m2.compose(p2, q, s2);
       shadow.setMatrixAt(i, m2);
 
+      // Glossy highlight: a tight white sheen sitting right on each bead.
+      p3.set(x, y, z);
+      s3.setScalar(data.scale[i] * 0.52);
+      m3.compose(p3, q, s3);
+      gloss.setMatrixAt(i, m3);
+
       data.cur[i3] = x;
       data.cur[i3 + 1] = y;
       data.cur[i3 + 2] = z;
@@ -220,6 +246,7 @@ export default function ParticleField({ controller, count }: Props) {
     }
     mesh.instanceMatrix.needsUpdate = true;
     shadow.instanceMatrix.needsUpdate = true;
+    gloss.instanceMatrix.needsUpdate = true;
 
     // Slow cinematic drift + mouse parallax.
     const g = groupRef.current;
@@ -237,6 +264,11 @@ export default function ParticleField({ controller, count }: Props) {
       <instancedMesh
         ref={shadowRef}
         args={[shadowGeom, shadowMat, count]}
+        frustumCulled={false}
+      />
+      <instancedMesh
+        ref={glossRef}
+        args={[glossGeom, glossMat, count]}
         frustumCulled={false}
       />
       <instancedMesh

@@ -11,9 +11,6 @@ export default function Loader({ show }: { show: boolean }) {
       <div className="font-display text-4xl font-bold tracking-[0.3em] metallic-text animate-pulse">
         VENC
       </div>
-      <div className="text-[10px] uppercase tracking-[0.4em] text-white/40">
-        Menyiapkan pengalaman
-      </div>
       <div className="h-px w-40 overflow-hidden bg-white/10">
         <div className="h-full w-1/2 animate-[loadslide_1.2s_ease-in-out_infinite] bg-white/70" />
       </div>

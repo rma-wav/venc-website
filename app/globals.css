@@ -45,6 +45,113 @@ body {
   color: transparent;
 }
 
+/* ------------------------------ Light theme ------------------------------ */
+/* The site is dark-first. `html.light` remaps the monochrome utilities to
+   dark-on-light equivalents so the toggle in the sidebar just works. These
+   rules are unlayered, so they win over Tailwind's layered utilities. */
+
+html.light {
+  background: #f4f3ef;
+}
+
+html.light body {
+  background: #f4f3ef;
+  color: #161616;
+}
+
+html.light ::selection {
+  background: rgba(22, 22, 22, 0.9);
+  color: #f4f3ef;
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #f4f3ef;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #c9c7c0;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #a8a59c;
+}
+
+html.light .text-white { color: #161616; }
+html.light .text-white\/85 { color: rgb(22 22 22 / 0.85); }
+html.light .text-white\/75 { color: rgb(22 22 22 / 0.75); }
+html.light .text-white\/70 { color: rgb(22 22 22 / 0.7); }
+html.light .text-white\/65 { color: rgb(22 22 22 / 0.65); }
+html.light .text-white\/60 { color: rgb(22 22 22 / 0.6); }
+html.light .text-white\/50 { color: rgb(22 22 22 / 0.5); }
+html.light .text-white\/45 { color: rgb(22 22 22 / 0.45); }
+html.light .text-white\/40 { color: rgb(22 22 22 / 0.4); }
+html.light .text-white\/35 { color: rgb(22 22 22 / 0.35); }
+html.light .text-white\/30 { color: rgb(22 22 22 / 0.3); }
+html.light .text-black { color: #f4f3ef; }
+
+html.light .bg-white { background-color: #161616; }
+html.light .bg-white\/70 { background-color: rgb(22 22 22 / 0.7); }
+html.light .bg-white\/40 { background-color: rgb(22 22 22 / 0.4); }
+html.light .bg-white\/20 { background-color: rgb(22 22 22 / 0.2); }
+html.light .bg-white\/10 { background-color: rgb(22 22 22 / 0.1); }
+html.light .bg-white\/\[0\.03\] { background-color: rgb(22 22 22 / 0.04); }
+html.light .bg-black { background-color: #f4f3ef; }
+html.light .bg-black\/45 { background-color: rgb(244 243 239 / 0.6); }
+
+html.light .border-white { border-color: #161616; }
+html.light .border-white\/30 { border-color: rgb(22 22 22 / 0.3); }
+html.light .border-white\/25 { border-color: rgb(22 22 22 / 0.25); }
+html.light .border-white\/15 { border-color: rgb(22 22 22 / 0.15); }
+html.light .border-white\/10 { border-color: rgb(22 22 22 / 0.1); }
+html.light .border-white\/5 { border-color: rgb(22 22 22 / 0.05); }
+
+html.light .from-white { --tw-gradient-from: #161616; }
+html.light .from-white\/60 { --tw-gradient-from: rgb(22 22 22 / 0.6); }
+html.light .to-white { --tw-gradient-to: #161616; }
+html.light .to-white\/40 { --tw-gradient-to: rgb(22 22 22 / 0.4); }
+html.light .to-white\/30 { --tw-gradient-to: rgb(22 22 22 / 0.3); }
+html.light .via-white\/30 { --tw-gradient-via: rgb(22 22 22 / 0.3); }
+
+html.light .hover\:border-white:hover { border-color: #161616; }
+html.light .hover\:border-white\/30:hover { border-color: rgb(22 22 22 / 0.3); }
+html.light .hover\:text-white:hover { color: #161616; }
+
+/* ----------------------------- Custom cursor ----------------------------- */
+
+.custom-cursor-dot,
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  border-radius: 9999px;
+  display: none;
+  mix-blend-mode: difference;
+}
+
+html.has-custom-cursor .custom-cursor-dot,
+html.has-custom-cursor .custom-cursor-ring {
+  display: block;
+}
+
+.custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: #fff;
+}
+
+.custom-cursor-ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+}
+
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
 /* Thin custom scrollbar to match the monochrome theme */
 ::-webkit-scrollbar {
   width: 8px;

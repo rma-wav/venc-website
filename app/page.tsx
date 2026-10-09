@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MorphController } from "@/lib/controller";
 import ExperienceCanvas from "@/components/three/ExperienceCanvas";
 import ScrollRig from "@/components/ScrollRig";
 import Navbar from "@/components/Navbar";
 import ProgressNav, { type HudApi } from "@/components/ProgressNav";
 import Loader from "@/components/Loader";
+import CustomCursor from "@/components/CustomCursor";
 import {
   LetterIntro,
   Hero,
@@ -35,6 +36,29 @@ export default function Page() {
       : 15000
   );
 
+  // Light/dark theme, persisted across visits.
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("venc-theme");
+      if (saved === "light" || saved === "dark") setTheme(saved);
+    } catch {
+      /* storage unavailable */
+    }
+  }, []);
+  useEffect(() => {
+    document.documentElement.classList.toggle("light", theme === "light");
+    try {
+      window.localStorage.setItem("venc-theme", theme);
+    } catch {
+      /* storage unavailable */
+    }
+  }, [theme]);
+  const toggleTheme = useCallback(
+    () => setTheme((t) => (t === "dark" ? "light" : "dark")),
+    []
+  );
+
   const goToPanelRef = useRef<((i: number) => void) | null>(null);
   const hudRef = useRef<HudApi | null>(null);
 
@@ -45,11 +69,13 @@ export default function Page() {
   return (
     <>
       <Loader show={!ready} />
-      <Navbar goToPanelRef={goToPanelRef} />
+      <CustomCursor />
+      <Navbar goToPanelRef={goToPanelRef} theme={theme} onToggleTheme={toggleTheme} />
       <ExperienceCanvas
         controller={controller}
         count={count}
         onReady={handleReady}
+        theme={theme}
       />
       <ScrollRig
         controller={controller}

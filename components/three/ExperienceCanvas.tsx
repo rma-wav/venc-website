@@ -120,9 +120,13 @@ interface Props {
   controller: MorphController;
   count: number;
   onReady: () => void;
+  theme: "dark" | "light";
 }
 
-export default function ExperienceCanvas({ controller, count, onReady }: Props) {
+export default function ExperienceCanvas({ controller, count, onReady, theme }: Props) {
+  const light = theme === "light";
+  const bg = light ? "#f4f3ef" : "#000000";
+  const edge = light ? "244,243,239" : "0,0,0";
   return (
     <div className="fixed inset-0 z-0" aria-hidden="true">
       <Canvas
@@ -130,7 +134,7 @@ export default function ExperienceCanvas({ controller, count, onReady }: Props) 
         camera={{ position: [0, 0, 7.6], fov: 40 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       >
-        <color attach="background" args={["#000000"]} />
+        <color attach="background" args={[bg]} />
         <ambientLight intensity={0.35} />
         <directionalLight position={[5, 6, 8]} intensity={1.4} />
         <directionalLight position={[-6, -3, 4]} intensity={0.45} color="#dfe6ff" />
@@ -144,20 +148,19 @@ export default function ExperienceCanvas({ controller, count, onReady }: Props) 
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,0.6) 100%)",
+          background: `radial-gradient(ellipse at center, transparent 42%, rgba(${edge},0.6) 100%)`,
         }}
       />
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-40"
         style={{
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.7), transparent)",
+          background: `linear-gradient(to bottom, rgba(${edge},0.7), transparent)`,
         }}
       />
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
         style={{
-          background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)",
+          background: `linear-gradient(to top, rgba(${edge},0.7), transparent)`,
         }}
       />
     </div>
