@@ -56,7 +56,7 @@ const ProgressNav = forwardRef<HudApi, Props>(function ProgressNav(
         />
       </div>
       <nav
-        className="fixed left-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 md:flex"
+        className="fixed right-24 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 md:flex"
         aria-label="Navigasi slide"
       >
         {Array.from({ length: total }).map((_, i) => (
